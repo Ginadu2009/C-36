@@ -7,21 +7,8 @@ class Player {
     this.rank=0
     this.score=0
     this.fuel=185
-    this.life=185
   }
- 
-getCarros(){
-  database.ref("carroFim").on("value",data=>{
-    this.rank = data.val()
-  })
-} 
-
-static updateCarros(rankDb){
-  database.ref("/").update({
-    carroFim:rankDb
-  })
-}
-
+  
 getCount(){
   var playesCountR = database.ref("contagemJogador");
   playesCountR.on("value",data=>{
@@ -31,7 +18,7 @@ getCount(){
 
 updateCount(c){
   database.ref("/").update({
-    contagemJogador:c
+  contagemJogador:c
   })
 
 }

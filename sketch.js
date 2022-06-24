@@ -12,7 +12,6 @@ var combustivel, combustivelImg;
 var obstaculos, obstaculo1, obstaculo2;
 var carros = []
 var estadoJogo;
-var lifeImage
 
 function preload() {
   backgroundImage = loadImage("./assets/planodefundo.png");
@@ -23,7 +22,6 @@ function preload() {
   obstaculo2 = loadImage("assets/obstacle2.png")
   coinImg = loadImage("assets/goldCoin.png")
   combustivelImg = loadImage("assets/fuel.png")
-  lifeImage = loadImage("assets/life.png")
 }
 
 function setup() {
@@ -51,9 +49,3 @@ function draw() {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
-
-/*
--Sketch: preload: nome da moeda e do combustivel errados
-- algum erro no banco de dados
-
-*/

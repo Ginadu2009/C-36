@@ -1,12 +1,10 @@
 class Game {
   constructor() {
-    this.resetTitle = createElement("h2");
-    this.resetButton = createButton("");//argumento vazio para 'caber' a imagem
-
-    this.leadeboardTitle = createElement("h2");
-
-    this.leader1 = createElement("h2");
-    this.leader2 = createElement("h2");
+    this.resetTitle=createElement("h2")
+    this.resetButton=createButton("")
+    this.leadeboardTitle=createElement("h2")
+    this.leader1=createElement("h2")
+    this.leader2=createElement("h2")
   }
 
   start() {
@@ -16,15 +14,15 @@ class Game {
     contagemJogador = player.getCount();
     carro1 = createSprite (width/2-50,height-100);
     carro1.addImage(carro1Img);
-    carro1.scale = 0.07
+    carro1.scale = 0.2
     carro2 = createSprite (width/2+100, height-100);
     carro2.addImage(carro2Img);
-    carro2.scale = 0.07
+    carro2.scale = 0.2
     carros = [carro1, carro2]
     combustivel = new Group()
     obstaculos =  new Group()
     coin = new Group()
-    this.addSprites(coin,10,coinImg,0.09);
+    this.addSprites(coin,50,coinImg,0.09);
     this.addSprites(combustivel,10,combustivelImg,0.02)
     var obstaclesPositions = [
       { x: width / 2 + 250, y: height - 800, image: obstaculo2 },
@@ -101,17 +99,13 @@ class Game {
   }
 
   play(){
-    //this.mudanca()
+    this.mudanca()
     this.handleElements()
     this.resetButtonf()
     Player.getPlayersInf()
-    player.getCarros()
-    player.updateCarros()
     if(allPlayers!== undefined){
-      image(pistaImg,0, -height * 5, width, height * 6);
+      image(pistaImg,0,-height*5,width,height*6);
       this.showLeaderboard()
-      this.showLife()
-      this.showFuelBar()
       var index = 0;
       for(var playerS in allPlayers){
         index +=1
@@ -126,17 +120,8 @@ class Game {
           this.handleFuel
           this.handleCoin
         }
-
       }
       this.playerControls()
-      const finishiLine=height*6-100
-      if(player.positionY>finishiLine){
-        estadoJogo = 2
-        player.rank +=1
-        Player.updateCarros(player.rank)
-        player.update()
-        this.showRank()
-      }
       drawSprites();
     }
   
@@ -188,8 +173,7 @@ class Game {
   resetButtonf(){
     this.resetButton.mousePressed(()=>{
       database.ref("/").set({
-        contagemJogador:0,estadoJogo:0,players:{},getCarros:0
-
+        contagemJogador:0,estadoJogo:0,players:{}
       })
       window.location.reload()
     })
@@ -236,53 +220,6 @@ class Game {
 
     this.leader1.html(leader1);
     this.leader2.html(leader2);
-  }
-
-  showRank() {
-    swal({
-      //title: `Incrível!${"\n"}Rank${"\n"}${player.rank}`,
-      title: `Incrível!${"\n"}${player.rank}º lugar`,
-      text: "Você alcançou a linha de chegada com sucesso!",
-      imageUrl:
-        "https://raw.githubusercontent.com/vishalgaddam873/p5-multiplayer-car-race-game/master/assets/cup.png",
-      imageSize: "100x100",
-      confirmButtonText: "Ok"
-    });
-  }
-
-  showLife() {
-    push();
-    image(lifeImage, width / 2 - 130, height - player.positionY - 300, 20, 20);
-    fill("white");
-    rect(width / 2 - 100, height - player.positionY - 300, 185, 20);
-    fill("#C2331D");
-    rect(width / 2 - 100, height - player.positionY - 300, player.life, 20);
-    noStroke();
-    pop();
-  }
-
-  //barra combustivel
-  showFuelBar() {
-    push();
-    image(combustivelImg, width / 2 - 130, height - player.positionY - 350, 20, 20);
-    fill("white");
-    rect(width / 2 - 100, height - player.positionY - 350, 185, 20);
-    fill("#ffc400");
-    rect(width / 2 - 100, height - player.positionY - 350, player.fuel, 20);
-    noStroke();
-    pop();
-  }
-
-  //final de jogo
-  gameOver() {
-    swal({
-      title: `Fim de Jogo`,
-      text: "Oops você perdeu a corrida!",
-      imageUrl:
-        "https://cdn.shopify.com/s/files/1/1061/1924/products/Thumbs_Down_Sign_Emoji_Icon_ios10_grande.png",
-      imageSize: "100x100",
-      confirmButtonText: "Obrigado por jogar"
-    });
   }
 
 }

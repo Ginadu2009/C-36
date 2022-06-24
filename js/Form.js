@@ -40,7 +40,6 @@ class Form {
       Olá, ${this.input.value()}
       </br>Espere o outro jogador entrar`;
       this.greeting.html(mensage)
-      
       contagemJogador +=1
       player.name = this.input.value()
       player.index = contagemJogador
